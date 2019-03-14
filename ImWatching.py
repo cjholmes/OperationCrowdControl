@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 import pyaudio
+import audioop
 
 #TODO Figure out capture device of camera
 vCap = cv2.VideoCapture(0)
@@ -19,9 +20,18 @@ while stream.is_active():
     print "listening"
 
 
-
 def checkForActivate(in_data, # recorded data if input=True
                      frame_count, # number of frames
                      time_info, #dictionary
                      status_flags): #pyaudio callback flags
     print "Is Callback"
+
+def toDB(in_data):
+    # Convert data from string
+    audio_data = np.fromstring(in_data, np.int16)
+    # Root mean's square of audio data
+    rms = audioop.rms(audio_data, len(audio_data))
+    # Convert to decible
+    db = 20 * np.log10(rms)
+    return db
+    

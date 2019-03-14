@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import pyaudio
 
 #TODO Figure out capture device of camera
 vCap = cv2.VideoCapture(0)
